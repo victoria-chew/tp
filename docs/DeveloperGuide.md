@@ -280,7 +280,9 @@ _{Explain here how the data archiving feature will be implemented}_
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Our address book allows Parents to easily manage a stored list of manually added freelance Tutors
+contacts for their Children’s subjects. The address book will present useful data in a structured format for Parents to 
+make decisions of a Tutor for their Children.
 
 
 ### User stories
