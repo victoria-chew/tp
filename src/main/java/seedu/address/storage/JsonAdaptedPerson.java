@@ -15,6 +15,8 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Rate;
+import seedu.address.model.person.Subject;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,6 +30,8 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String subject;
+    private final String rate;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -36,11 +40,14 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                             @JsonProperty("subject") String subject, @JsonProperty("rate") String rate,
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.subject = subject;
+        this.rate = rate;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -54,6 +61,8 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        subject = source.getSubject().subject;
+        rate = source.getRate().rate;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -102,8 +111,21 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (subject == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Subject.class.getSimpleName()));
+        }
+        if (!Subject.isValidSubject(subject)) {
+            throw new IllegalValueException(Subject.MESSAGE_CONSTRAINTS);
+        }
+        final Subject modelSubject = new Subject(subject);
+
+        if (!Rate.isValidRate(rate)) {
+            throw new IllegalValueException(Rate.MESSAGE_CONSTRAINTS);
+        }
+        final Rate modelRate = new Rate(rate);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelSubject, modelRate, modelTags);
     }
 
 }
