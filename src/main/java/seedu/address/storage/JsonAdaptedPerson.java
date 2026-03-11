@@ -40,8 +40,8 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-                             @JsonProperty("subject") String subject, @JsonProperty("rate") String rate,
-                             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("subject") String subject, @JsonProperty("rate") String rate,
+            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -69,9 +69,11 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted person object into the model's
+     * {@code Person} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in
+     *                               the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
@@ -119,6 +121,9 @@ class JsonAdaptedPerson {
         }
         final Subject modelSubject = new Subject(subject);
 
+        if (rate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Rate.class.getSimpleName()));
+        }
         if (!Rate.isValidRate(rate)) {
             throw new IllegalValueException(Rate.MESSAGE_CONSTRAINTS);
         }
