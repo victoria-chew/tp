@@ -59,7 +59,7 @@ public class PersonCard extends UiPart<Region> {
         if (hasAddress) {
             address.setText("Address: " + person.getAddress().value);
         } else {
-            address.setText("Address: Not Provided" );
+            address.setText("Address: Not Provided");
         }
 
         subject.setText("Subject: " + person.getSubject().subject);
