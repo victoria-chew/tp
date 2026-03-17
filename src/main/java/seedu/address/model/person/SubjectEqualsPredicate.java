@@ -14,7 +14,7 @@ public class SubjectEqualsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return person.getSubject().subject.equalsIgnoreCase(subject.subject);
+        return person.getSubject().isSameSubject(subject);
     }
 
     @Override
@@ -26,6 +26,6 @@ public class SubjectEqualsPredicate implements Predicate<Person> {
             return false;
         }
         SubjectEqualsPredicate otherPredicate = (SubjectEqualsPredicate) other;
-        return subject.subject.equalsIgnoreCase(otherPredicate.subject.subject);
+        return subject.isSameSubject(otherPredicate.subject);
     }
 }
