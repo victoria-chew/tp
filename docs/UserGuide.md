@@ -125,7 +125,7 @@ Format: `find s/SUBJECT`
 * The search is case-insensitive. e.g `n/hans` will match `Hans`
 * The order of the name keywords does not matter. e.g `n/Hans Bo` will match `Bo Hans`
 * Only full words will be matched for names e.g `n/Han` will not match `Hans`
-* Spaces after the prefix are optional. e.g. `n/Victoria` and `n/ Victoria` both work
+* Spaces after the prefix are optional. e.g. `n/Hans` and `n/ Hans` both work
 * Persons matching at least one name keyword will be returned (i.e. `OR` search).  
   e.g `n/Hans Bo` will return `Hans Gruber`, `Bo Yang`
 * Rate searches match persons whose rate is exactly the given value.
