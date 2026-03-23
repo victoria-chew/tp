@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -79,5 +80,13 @@ public class UniversalSearchPredicateTest {
         UniversalSearchPredicate predicate = new UniversalSearchPredicate(Collections.singletonList("Carol"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
     }
-}
 
+    @Test
+    public void toStringMethod() {
+        List<String> keywords = List.of("keyword1", "keyword2");
+        UniversalSearchPredicate predicate = new UniversalSearchPredicate(keywords);
+
+        String expected = UniversalSearchPredicate.class.getCanonicalName() + "{keywords=" + keywords + "}";
+        assertEquals(expected, predicate.toString());
+    }
+}
