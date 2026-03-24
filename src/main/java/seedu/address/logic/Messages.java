@@ -19,6 +19,15 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
 
+    /** @see seedu.address.logic.parser.SortCommandParser */
+    public static final String MESSAGE_INVALID_SORT_FIELD =
+            "Invalid sort field '%1$s'. Only name and rate are allowed.";
+    /** @see seedu.address.logic.parser.SortCommandParser */
+    public static final String MESSAGE_INVALID_SORT_ORDER =
+            "Invalid sort order '%1$s'. Only asc and desc are allowed.";
+    /** @see seedu.address.logic.parser.SortCommandParser */
+    public static final String MESSAGE_SORT_WRONG_ARGUMENT_COUNT =
+            "Sort expects exactly two parameters: field (name or rate) and order (asc or desc).\n%1$s";
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
