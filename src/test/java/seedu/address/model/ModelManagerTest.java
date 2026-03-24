@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.PersonSortField;
+import seedu.address.model.person.PersonSortOrder;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -91,6 +93,19 @@ public class ModelManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getDisplayedListSortDescription_default() {
+        assertTrue(modelManager.getDisplayedListSortDescription().contains("order of addition"));
+    }
+
+    @Test
+    public void getDisplayedListSortDescription_afterSortByNameAscending() {
+        modelManager.updateDisplayedPersonListSort(PersonSortField.NAME, PersonSortOrder.ASCENDING);
+        String desc = modelManager.getDisplayedListSortDescription();
+        assertTrue(desc.contains("name"));
+        assertTrue(desc.contains("ascending"));
     }
 
     @Test
