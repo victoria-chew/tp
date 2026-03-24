@@ -75,16 +75,26 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+### Clearing all entries: `clear`
+
+Clears all entries from the address book.
+
+![clear message](images/clearMessage.png)
+
+Format: `clear`
+
 
 ### Adding a person: `add`
 
 Adds a person to the address book.
 
+![add message](images/addMessage.png)
+
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/SUBJECT1 s/SUBJECT2 ... s/SUBJECTN r/RATE [a/ADDRESS] [t/TAG]…​`
 
 <box type="tip" seamless>
 
-**Tip:** 
+**Tips:** 
 1. A person can have any number of tags (including 0) and more than one subjects.
 2. The parameters of the command can be entered in any orders.
 
@@ -97,6 +107,8 @@ Examples:
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book.
+
+![list message](images/listMessage.png)
 
 Format: `list`
 
@@ -149,6 +161,8 @@ Examples:
 
 Deletes the specified person from the address book.
 
+![delete message](images/deleteMessage.png)
+
 Format: `delete INDEX`
 
 * Deletes the person at the specified `INDEX`.
@@ -159,12 +173,6 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### Clearing all entries : `clear`
-
-Clears all entries from the address book.
-
-Format: `clear`
-
 ### Exiting the program : `exit`
 
 Exits the program.
@@ -173,23 +181,18 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Tuto's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+Tuto's data are saved automatically as a JSON file `[JAR file location]/data/Tuto.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, Tuto will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the Tuto to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
