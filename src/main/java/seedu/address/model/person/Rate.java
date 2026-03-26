@@ -11,6 +11,19 @@ public class Rate {
 
     public static final String MESSAGE_CONSTRAINTS = "Rate should only contain numbers, and it should not be blank";
 
+    public static final String MESSAGE_INVALID_RATE_FIND_FORMAT =
+            "Invalid rate format for find command.\n"
+                    + "Use r/NUMBER for exact rate, r/<NUMBER for rates less than NUMBER, "
+                    + "r/>NUMBER for rates greater than NUMBER, or r/LOWER-UPPER for an inclusive range.";
+
+    public static final String MESSAGE_MISSING_RATE_BOUND =
+            "Invalid rate range: both lower and upper bounds must be provided.\n"
+                    + "Use format r/LOWER-UPPER (e.g. r/10-20).";
+
+    public static final String MESSAGE_INVALID_RATE_RANGE_ORDER =
+            "Invalid rate range: lower bound cannot be greater than upper bound.\n"
+                    + "Ensure LOWER ≤ UPPER (e.g. r/10-20).";
+
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
