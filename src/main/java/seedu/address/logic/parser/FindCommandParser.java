@@ -20,6 +20,9 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Rate;
 import seedu.address.model.person.RateEqualsPredicate;
+import seedu.address.model.person.RateGreaterThanPredicate;
+import seedu.address.model.person.RateLessThanPredicate;
+import seedu.address.model.person.RateRangePredicate;
 import seedu.address.model.person.Subject;
 import seedu.address.model.person.SubjectContainsKeywordsPredicate;
 import seedu.address.model.person.UniversalSearchPredicate;
@@ -228,7 +231,82 @@ public class FindCommandParser implements Parser<FindCommand> {
     private Predicate<Person> parseRatePredicate(ArgumentMultimap argMultimap) throws ParseException {
         String rateArgs = argMultimap.getValue(PREFIX_RATE).get().trim();
 
-        if (rateArgs.isEmpty() || !Rate.isValidRate(rateArgs)) {
+        // Reject empty input like r/
+        if (rateArgs.isEmpty()) {
+            throw new ParseException(Rate.MESSAGE_CONSTRAINTS);
+        }
+
+        // If it contains ANY non-digit separator but no '-'
+        if (!rateArgs.contains("-") && !rateArgs.matches("[<>]?\\d+")) {
+            throw new ParseException(Rate.MESSAGE_INVALID_RATE_RANGE_DELIMITER);
+        }
+
+        // Detect negative rate like r/-10 (but not range like 10-20)
+        if (rateArgs.matches("-\\d+")) {
+            throw new ParseException(Rate.MESSAGE_NEGATIVE_RATE_NOT_ALLOWED);
+        }
+
+        // Case 1: Less-than search, e.g. r/<10
+        if (rateArgs.startsWith("<")) {
+            String num = rateArgs.substring(1).trim();
+
+            // Reject cases like r/< or r/<abc
+            if (num.isEmpty() || !Rate.isValidRate(num)) {
+                throw new ParseException(Rate.MESSAGE_CONSTRAINTS);
+            }
+
+            return new RateLessThanPredicate(Integer.parseInt(num));
+        }
+
+        // Case 2: Greater-than search, e.g. r/>10
+        if (rateArgs.startsWith(">")) {
+            String num = rateArgs.substring(1).trim();
+
+            // Reject cases like r/> or r/>abc
+            if (num.isEmpty() || !Rate.isValidRate(num)) {
+                throw new ParseException(Rate.MESSAGE_CONSTRAINTS);
+            }
+
+            return new RateGreaterThanPredicate(Integer.parseInt(num));
+        }
+
+        // Case 3: Range search, e.g. r/10-20
+        if (rateArgs.contains("-")) {
+            // Reject malformed inputs like r/10-20-30, restrict to only 1 dash
+            if (rateArgs.chars().filter(ch -> ch == '-').count() != 1) {
+                throw new ParseException(Rate.MESSAGE_INVALID_RATE_FIND_FORMAT);
+            }
+
+            // Split into at most 2 parts only
+            String[] parts = rateArgs.split("-", -1);
+
+            String lower = parts[0].trim();
+            String upper = parts[1].trim();
+
+            // Reject missing bounds like r/10- or r/-20
+            if (lower.isEmpty() || upper.isEmpty()) {
+                throw new ParseException(Rate.MESSAGE_MISSING_RATE_BOUND);
+            }
+
+            // Reject non-numeric bounds like r/ten-20
+            if (!Rate.isValidRate(lower) || !Rate.isValidRate(upper)) {
+                throw new ParseException(Rate.MESSAGE_CONSTRAINTS);
+            }
+
+            int lowerBound = Integer.parseInt(lower);
+            int upperBound = Integer.parseInt(upper);
+
+            // Reject reversed range like r/20-10
+            if (lowerBound > upperBound) {
+                throw new ParseException(Rate.MESSAGE_INVALID_RATE_RANGE_ORDER);
+            }
+
+            // Inclusive range: lowerBound <= rate <= upperBound
+            return new RateRangePredicate(lowerBound, upperBound);
+        }
+
+        // Case 4: Exact match, e.g. r/10
+        if (!Rate.isValidRate(rateArgs)) {
             throw new ParseException(Rate.MESSAGE_CONSTRAINTS);
         }
 

@@ -32,9 +32,12 @@ public class FindCommand extends Command {
             + COMMAND_WORD + " alice\n"
             + COMMAND_WORD + " 50\n"
             + COMMAND_WORD + " n/Jo\n"
-            + COMMAND_WORD + " s/Math s/Sci\n"
-            + COMMAND_WORD + " r/16 s/Math\n"
-            + COMMAND_WORD + " n/Alex r/20 s/Chem";
+            + COMMAND_WORD + " s/Math s/Science\n"
+            + COMMAND_WORD + " r/16\n"
+            + COMMAND_WORD + " r/<10\n"
+            + COMMAND_WORD + " r/>10\n"
+            + COMMAND_WORD + " r/10-20\n"
+            + COMMAND_WORD + " n/Alex r/15 s/Chemistry";
 
     private final Predicate<Person> predicate;
 
