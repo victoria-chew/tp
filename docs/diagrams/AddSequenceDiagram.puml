@@ -23,19 +23,20 @@ LogicManager -> AddressBookParser : parseCommand("add n/John ...")
 activate AddressBookParser
 
 create AddCommandParser
-AddressBookParser -> AddCommandParser: <<create>>
+AddressBookParser -> AddCommandParser: AddCommandParser()
 activate AddCommandParser
 
-AddressBookParser -> AddCommandParser : parse(arguments)
+
+AddCommandParser -> AddCommandParser : parse(arguments)
 
 create Person
-AddCommandParser -> Person: <<create>>(name, phone, email, address, subjects, rate,tags)
+AddCommandParser -> Person: <<create>>Person()
 activate Person
 Person --> AddCommandParser: person
 deactivate Person
 
 create AddCommand
-AddCommandParser -> AddCommand : <<create>>(person)
+AddCommandParser -> AddCommand : person
 activate AddCommand
 AddCommand --> AddCommandParser : toAdd
 deactivate AddCommand
@@ -70,7 +71,7 @@ Model --> AddCommand
 deactivate Model
 
 create CommandResult
-AddCommand -> CommandResult : <<create>>("New person added ...")
+AddCommand -> CommandResult : CommandResult()
 activate CommandResult
 CommandResult --> AddCommand : r
 deactivate CommandResult
