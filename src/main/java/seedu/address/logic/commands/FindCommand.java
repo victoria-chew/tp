@@ -89,7 +89,7 @@ public class FindCommand extends Command {
         if (findDescription == null || findDescription.isEmpty()) {
             return "";
         }
-        return "Find results for:\n" + findDescription;
+        return findDescription;
     }
 
     @Override
