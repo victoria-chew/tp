@@ -58,7 +58,6 @@ public class SubjectContainsKeywordsPredicate implements Predicate<Person> {
         if (keyword == null || keyword.trim().isEmpty()) {
             return false;
         }
-        
         String kwLower = keyword.toLowerCase().trim().replaceAll("\\s+", " ");
 
         return personSubjectsLower.stream()
