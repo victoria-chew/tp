@@ -15,7 +15,7 @@ import seedu.address.testutil.PersonBuilder;
 public class SubjectContainsKeywordsPredicateTest {
 
     @Test
-    public void equals() {
+    public void equals_differentConditions_returnsCorrectResult() {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
@@ -90,7 +90,7 @@ public class SubjectContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void toStringMethod() {
+    public void toString_validKeywords_returnsExpectedString() {
         List<String> keywords = List.of("keyword1", "keyword2");
         SubjectContainsKeywordsPredicate predicate = new SubjectContainsKeywordsPredicate(keywords);
 
