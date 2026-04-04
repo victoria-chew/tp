@@ -25,6 +25,9 @@ public class ResultDisplay extends UiPart<Region> {
     @FXML
     private ListView<PersonIndexPair> resultListView;
 
+    @FXML
+    private TextArea resultDescriptionDisplay;
+
     /**
      * Creates a {@code ResultDisplay} with the given {@code FXML} file.
      */
@@ -38,19 +41,38 @@ public class ResultDisplay extends UiPart<Region> {
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
+
         resultDisplay.setText(feedbackToUser);
         resultDisplay.setVisible(true);
+
         resultListView.setVisible(false);
+        resultListView.getItems().clear();
+
+        updateDescriptionDisplay("");
     }
 
     /**
      * Sets the list of persons to display in the result box.
      */
-    public void setPersonList(List<PersonIndexPair> persons) {
+    public void setPersonList(List<PersonIndexPair> persons, String description) {
         requireNonNull(persons);
+
         resultListView.setItems(FXCollections.observableArrayList(persons));
         resultListView.setVisible(true);
+
         resultDisplay.setVisible(false);
+        resultDisplay.setText("");
+
+        updateDescriptionDisplay(description);
+    }
+
+    private void updateDescriptionDisplay(String description) {
+        if (resultDescriptionDisplay == null) {
+            return;
+        }
+        boolean hasDescription = description != null && !description.isEmpty();
+        resultDescriptionDisplay.setText(hasDescription ? description : "");
+        resultDescriptionDisplay.setVisible(hasDescription);
     }
 
     /**

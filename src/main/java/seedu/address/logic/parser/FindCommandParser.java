@@ -54,8 +54,9 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         // Build the combined predicate in a single helper to keep this method high-level.
         Predicate<Person> combinedPredicate = buildCombinedPredicate(argMultimap);
+        String findDescription = buildFindDescription(argMultimap);
 
-        return new FindCommand(combinedPredicate);
+        return new FindCommand(combinedPredicate, findDescription);
     }
 
     /**
@@ -87,6 +88,59 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         return combinedPredicate;
+    }
+
+    private String buildFindDescription(ArgumentMultimap argMultimap) {
+        List<String> parts = new ArrayList<>();
+
+        addUniversalPart(argMultimap, parts);
+        addNamePart(argMultimap, parts);
+        addSubjectPart(argMultimap, parts);
+        addRatePart(argMultimap, parts);
+        addTagPart(argMultimap, parts);
+
+        return parts.isEmpty() ? "" : String.join(", ", parts);
+    }
+
+    private void addUniversalPart(ArgumentMultimap argMultimap, List<String> parts) {
+        String preamble = argMultimap.getPreamble().trim();
+        if (!preamble.isEmpty()) {
+            parts.add("universal search: '" + preamble + "'");
+        }
+    }
+
+    private void addNamePart(ArgumentMultimap argMultimap, List<String> parts) {
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            String nameValue = argMultimap.getValue(PREFIX_NAME).get().trim();
+            parts.add("name: '" + nameValue + "'");
+        }
+    }
+
+    private void addSubjectPart(ArgumentMultimap argMultimap, List<String> parts) {
+        if (!argMultimap.getAllValues(PREFIX_SUBJECT).isEmpty()) {
+            String subjectValue = String.join(", ",
+                    argMultimap.getAllValues(PREFIX_SUBJECT).stream()
+                            .map(String::trim)
+                            .toList());
+            parts.add("subject: '" + subjectValue + "'");
+        }
+    }
+
+    private void addRatePart(ArgumentMultimap argMultimap, List<String> parts) {
+        if (argMultimap.getValue(PREFIX_RATE).isPresent()) {
+            String rateValue = argMultimap.getValue(PREFIX_RATE).get().trim();
+            parts.add("hourly payment rate: '" + rateValue + "'");
+        }
+    }
+
+    private void addTagPart(ArgumentMultimap argMultimap, List<String> parts) {
+        if (!argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
+            String tagValue = String.join(", ",
+                    argMultimap.getAllValues(PREFIX_TAG).stream()
+                            .map(String::trim)
+                            .toList());
+            parts.add("tag: '" + tagValue + "'");
+        }
     }
 
     private ArgumentMultimap tokenizeAndValidate(String args) throws ParseException {
