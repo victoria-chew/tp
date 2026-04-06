@@ -108,7 +108,7 @@ public class SortCommandTest {
         expectedAfterDelete.deletePerson(toDelete);
 
         assertCommandSuccess(deleteCommand, model,
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(toDelete)),
+                DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
                 expectedAfterDelete);
     }
 
@@ -127,7 +127,7 @@ public class SortCommandTest {
         expectedAfterEdit.setPerson(firstSorted, editedPerson);
 
         assertCommandSuccess(editCommand, model,
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)),
+                EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
                 expectedAfterEdit);
         assertEquals(editedPerson, model.getFilteredPersonList().get(model.getFilteredPersonList().size() - 1));
     }
