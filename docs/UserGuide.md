@@ -259,7 +259,7 @@ Displays all tutor profiles stored in Tuto.
 
 **Format:** `list`
 
-**Expected output:** The Tutor List Panel refreshes to show all contacts. The Result Display shows the total number of tutors listed.
+**Expected output:** The Tutor List Panel refreshes to show all contacts. The Top Left Result Display shows the total number of tutors listed.
 
 <box type="tip" seamless>
 
