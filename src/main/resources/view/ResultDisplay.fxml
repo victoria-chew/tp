@@ -11,8 +11,8 @@
   <TextArea fx:id="resultDisplay" editable="false" wrapText="true" styleClass="result-display" minHeight="0"/>
     <VBox fx:id="resultListContainer" styleClass="result-display"
           visible="false" spacing="20" minHeight="0">
-        <Label fx:id="resultDescriptionDisplay" wrapText="true"
-               styleClass="result-description-label"
+        <Label fx:id="resultDescriptionDisplay" wrapText="false"
+               styleClass="result-description-label" textOverrun="ELLIPSIS"
                maxWidth="Infinity" minHeight="-Infinity"/>
         <ListView fx:id="resultListView" VBox.vgrow="ALWAYS" minHeight="0"/>
     </VBox>
