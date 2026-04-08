@@ -766,7 +766,7 @@ testers are expected to do more _exploratory_ testing.
     4. Editing a person's rate
         1. Prerequisites: List all persons using the `list` command. At least one person exists in the list.
         2. Test case: `edit 1 r/60`<br>
-           Expected: The first tutor's rate is updated to `60`. 
+           Expected: The first tutor's rate is updated to `60`. A success message showing the updated tutor details is displayed.
 
 3. Editing a person with optional fields
     1. Editing a person's address
