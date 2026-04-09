@@ -20,34 +20,34 @@ This guide is written for parents who are comfortable using a keyboard and want 
 ## Table of Contents
 
 - [Tuto User Guide](#tuto-user-guide)
-  - [Table of Contents](#table-of-contents)
-  - [Quick Start](#quick-start)
-    - [Step 1 — Install Java](#step-1--install-java)
-    - [Step 2 — Download Tuto](#step-2--download-tuto)
-    - [Step 3 — Launch Tuto](#step-3--launch-tuto)
-    - [Step 4 — Try Your First Commands](#step-4--try-your-first-commands)
-  - [Understanding the Interface](#understanding-the-interface)
-  - [Features](#features)
-    - [Notes on Command Format](#notes-on-command-format)
-    - [Viewing Help `help`](#viewing-help--help)
-    - [Clearing all entries: `clear`](#clearing-all-entries-clear)
-    - [Adding a Tutor : `add`](#adding-a-tutor--add)
-    - [Listing All Tutors : `list`](#listing-all-tutors--list)
-    - [Sorting the Tutor List : `sort`](#sorting-the-tutor-list--sort)
-    - [Editing a Tutor Profile : `edit`](#editing-a-tutor-profile--edit)
-    - [Finding Tutors : `find`](#finding-tutors--find)
-      - [Prefixes](#prefixes)
-      - [Search Modes](#search-modes)
-      - [How Matching Works](#how-matching-works)
-      - [Examples](#examples)
-      - [Invalid Usage](#invalid-usage)
-    - [Deleting a Tutor : `delete`](#deleting-a-tutor--delete)
-    - [Exiting the Program : `exit`](#exiting-the-program--exit)
-    - [Saving Your Data](#saving-your-data)
-    - [Editing the Data File Directly](#editing-the-data-file-directly)
-  - [FAQ](#faq)
-  - [Known Issues](#known-issues)
-  - [Command Summary](#command-summary)
+    - [Table of Contents](#table-of-contents)
+    - [Quick Start](#quick-start)
+        - [Step 1 — Install Java](#step-1--install-java)
+        - [Step 2 — Download Tuto](#step-2--download-tuto)
+        - [Step 3 — Launch Tuto](#step-3--launch-tuto)
+        - [Step 4 — Try Your First Commands](#step-4--try-your-first-commands)
+    - [Understanding the Interface](#understanding-the-interface)
+    - [Features](#features)
+        - [Notes on Command Format](#notes-on-command-format)
+        - [Viewing Help : `help`](#viewing-help--help)
+        - [Clearing all entries: `clear`](#clearing-all-entries-clear)
+        - [Adding a Tutor : `add`](#adding-a-tutor--add)
+        - [Listing All Tutors : `list`](#listing-all-tutors--list)
+        - [Sorting the Tutor List : `sort`](#sorting-the-tutor-list--sort)
+        - [Editing a Tutor Profile : `edit`](#editing-a-tutor-profile--edit)
+        - [Finding Tutors : `find`](#finding-tutors--find)
+            - [Prefixes](#prefixes)
+            - [Search Modes](#search-modes)
+            - [How Matching Works](#how-matching-works)
+            - [Examples](#examples)
+            - [Invalid Usage](#invalid-usage)
+        - [Deleting a Tutor : `delete`](#deleting-a-tutor--delete)
+        - [Exiting the Program : `exit`](#exiting-the-program--exit)
+        - [Saving Your Data](#saving-your-data)
+        - [Editing the Data File Directly](#editing-the-data-file-directly)
+    - [FAQ](#faq)
+    - [Known Issues](#known-issues)
+    - [Command Summary](#command-summary)
 
 ---
 
@@ -427,6 +427,8 @@ Search for tutors by keyword, name, subject, or hourly rate — or combine them 
 | Range  | `r/RATE1-RATE2` | Tutors charging between `RATE1` and `RATE2` (inclusive) |
 | Above  | `r/>RATE`       | Tutors charging more than `RATE`                        |
 | Below  | `r/<RATE`       | Tutors charging less than `RATE`                        |
+
+In every `r/` field above, each numeric token (`RATE`, `RATE1`, `RATE2`) must be **non-negative** (digits only; no minus sign). For ranges, `RATE1` must also be less than or equal to `RATE2`.
 
 **Mixed prefixes** — all conditions must be met
 
