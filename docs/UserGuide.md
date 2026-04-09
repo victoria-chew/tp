@@ -29,20 +29,22 @@ This guide is written for parents who are comfortable using a keyboard and want 
   - [Understanding the Interface](#understanding-the-interface)
   - [Features](#features)
     - [Notes on Command Format](#notes-on-command-format)
-    - [Viewing Help `help`](#viewing-help--help)
-    - [Adding a Tutor : `add`](#adding-a-tutor--add)
-    - [Editing a Tutor Profile : `edit`](#editing-a-tutor-profile--edit)
-    - [Deleting a Tutor : `delete`](#deleting-a-tutor--delete)
-    - [Finding Tutors : `find`](#finding-tutors--find)
+    - [Understanding List Indices](#understanding-list-indices)
+    - [Duplicate Tutors are Not Allowed](#duplicate-tutors-are-not-allowed)
+    - [Viewing Help : `help`](#viewing-help-help)
+    - [Adding a Tutor : `add`](#adding-a-tutor-add)
+    - [Editing a Tutor Profile : `edit`](#editing-a-tutor-profile-edit)
+    - [Deleting a Tutor : `delete`](#deleting-a-tutor-delete)
+    - [Finding Tutors : `find`](#finding-tutors-find)
       - [Prefixes](#prefixes)
       - [Search Modes](#search-modes)
       - [How Matching Works](#how-matching-works)
       - [Examples](#examples)
       - [Invalid Usage](#invalid-usage)
-    - [Sorting the Tutor List : `sort`](#sorting-the-tutor-list--sort)
-    - [Listing All Tutors : `list`](#listing-all-tutors--list)
+    - [Sorting the Tutor List : `sort`](#sorting-the-tutor-list-sort)
+    - [Listing All Tutors : `list`](#listing-all-tutors-list)
     - [Clearing all entries: `clear`](#clearing-all-entries-clear)
-    - [Exiting the Program : `exit`](#exiting-the-program--exit)
+    - [Exiting the Program : `exit`](#exiting-the-program-exit)
     - [Saving Your Data](#saving-your-data)
     - [Editing the Data File Directly](#editing-the-data-file-directly)
   - [FAQ](#faq)
@@ -88,9 +90,9 @@ Move the file into a dedicated folder (e.g. `~/tuto/`). This folder will store y
     java -jar tuto.jar
     ```
 
-A window similar to the one below should appear within a few seconds, pre-loaded with sample tutor data.
+A window similar to the one below should appear within a few seconds.
 
-![Tuto UI on first launch](images/Ui.png)
+![Tuto UI on first launch](images/empty_UI.png)
 
 ### Step 4 — Try Your First Commands
 
@@ -118,9 +120,9 @@ Type a command into the **Command Box** at the bottom and press **Enter** to run
 
 Tuto's interface has three main areas:
 
-- **Command Box** — where you type your commands
-- **Result Display** — shows feedback after each command (success messages or error details)
-- **Tutor List Panel** — displays all tutor profiles matching the current view
+- **Tutor List Panel (Left)** — shows all Tutor Profiles saved
+- **Result Display (Top Right)** — shows feedback after each command (success or error messages, records retrieved searching)
+- **Command Box (Bottom Right)** — where you type your commands
 
 Each tutor card in the panel shows the tutor's name, phone number, email, subject, and hourly rate. Tags (if any) appear as labels on the card.
 
@@ -157,16 +159,32 @@ The following conventions apply to all commands in this guide:
 
 </box>
 
+---
+
+### Understanding List Indices
+
+Commands such as `edit` and `delete` use **`INDEX`**: the number shown beside each tutor in the **Tutor List Panel** for the **current** list order.
+
 <box type="warning" seamless>
 
 **Displayed indices change after `sort` and `delete`**
 
-Commands such as `edit` and `delete` use **`INDEX`**: the number shown beside each tutor in the **Tutor List Panel** for the **current** list order.
-
 - After a **`sort`** command, tutors are reordered, so the same person may appear at a **different** index than before.
 - After a **`delete`** command, the list becomes shorter and tutors below the removed row **shift up**, so their indices are **renumbered** (what was “tutor 5” may become “tutor 4”).
 
-**Always look at the Tutor List Panel again** before typing the next `edit` or `delete` command. Do not assume indices from an earlier step are still correct.
+**Always search with Find or look at the Tutor List Panel again** before typing the next `edit` or `delete` command. Do not assume indices from an earlier step are still correct.
+
+</box>
+
+---
+
+### Duplicate Tutors are Not Allowed
+
+Tuto considers a Tutor Profile to be a duplicate if it shares the exact same **Phone number** or **Email** as an existing tutor. Both during `add` and `edit` operations, Tuto protects your data by rejecting the command if it detects a clash.
+
+<box type="warning" seamless>
+
+**Duplicate Error:** Neither adding a new tutor nor editing an existing one is permitted if it would resolve in two Tutor Profiles having the same phone number or email address.
 
 </box>
 
@@ -186,7 +204,7 @@ Displays a summary of available commands and their accepted parameter values.
 
 ### Adding a Tutor : `add`
 
-Adds a new tutor profile to Tuto.
+Adds a new Tutor Profile to Tuto.
 
 ![add message](images/addMessage.png)
 
@@ -210,7 +228,7 @@ Adds a new tutor profile to Tuto.
 
 **Tip:**
 
-1. Tags are powerful ways to organise tutor contacts. You can use multiple tags to provide more detail, e.g. `t/home` and `t/weekend`.
+1. Tags are powerful ways to organise Tutor Profiles. You can use multiple tags to provide more detail, e.g. `t/home` and `t/weekend`.
 2. A person can have any number of tags (including 0) and multiple subjects.
 3. Command parameters can be entered in any order.
 
@@ -220,11 +238,7 @@ Adds a new tutor profile to Tuto.
 
 #### Constraints
 
-<box type="warning" seamless>
-
-**Duplicate Contact:** Adding a tutor with the same phone number or email as an existing entry is not allowed. Tuto treats these fields as unique identifiers and protects against adding duplicate contacts.
-
-</box>
+Tuto natively handles duplicates to secure your data. See [Duplicate Tutors are Not Allowed](#duplicate-tutors-are-not-allowed) for more details.
 
 ![add constraint phone](images/add_cons_phone.png)
 
@@ -255,18 +269,22 @@ add n/ gabrielle chee p/ 87429246 e/ gabrielle@example.com s/ computing r/ 85 a/
 
 ### Editing a Tutor Profile : `edit`
 
-Updates one or more fields of an existing tutor profile.
+Updates one or more fields of an existing Tutor Profile.
 
-**Format:**
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SUBJECT] [r/RATE] [t/TAG]…`
 
-```
-edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SUBJECT] [r/RATE] [t/TAG]…
-```
+---
+
+#### Parameters
 
 - `INDEX` refers to the number shown next to the tutor in the current list. It must be a **positive integer** (1, 2, 3 …).
-- After a **`sort`** or **`delete`**, indices may no longer match what you saw earlier — see [Displayed indices change after `sort` and `delete`](#notes-on-command-format).
+- After a **`sort`** or **`delete`**, indices may no longer match what you saw earlier — see [Understanding List Indices](#understanding-list-indices).
 - At least one field must be provided.
 - Existing values are replaced with the new values you provide.
+
+---
+
+#### Constraints
 
 <box type="warning" seamless>
 
@@ -284,11 +302,15 @@ To update a tutor to multiple subjects, provide them as a single value within on
 
 <box type="warning" seamless>
 
-**Note:** Editing a tutor with same phone number or email as an existing entry is not allowed. Tuto treats each field as unique and will reject the operation if any duplicate is detected.
+**Note:** Editing a tutor with same phone number or email as an existing entry is not allowed. See [Duplicate Tutors are Not Allowed](#duplicate-tutors-are-not-allowed).
 
 </box>
 
-**Examples:**
+---
+
+#### Examples
+
+**Editing multiple fields at once**
 
 ```
 edit 1 p/91234567 e/johndoe@example.com
@@ -296,11 +318,15 @@ edit 1 p/91234567 e/johndoe@example.com
 
 Updates the phone number and email of the 1st tutor in the list.
 
+**Replacing tags**
+
 ```
 edit 2 n/Betsy Crower t/
 ```
 
 Renames the 2nd tutor and removes all of their tags.
+
+**Updating subject and rate**
 
 ```
 edit 1 s/Physics r/30
@@ -316,17 +342,16 @@ Edited Person: John Doe; Phone: 91234567; Email: johndoe@example.com; Address: ;
 
 ---
 
-
 ### Deleting a Tutor : `delete`
 
-Permanently removes a tutor profile from Tuto.
+Permanently removes a Tutor Profile from Tuto.
 
 ![delete message](images/deleteMessage.png)
 
-Format: `delete INDEX`
+**Format:** `delete INDEX`
 
 - `INDEX` must be a **positive integer** matching a tutor's position in the currently displayed list.
-- After you delete someone, **every tutor below that row moves up** and gets a new index. After a **`sort`**, positions change too. See [Displayed indices change after `sort` and `delete`](#notes-on-command-format).
+- After you delete someone, **every tutor below that row moves up** and gets a new index. After a **`sort`**, positions change too. See [Understanding List Indices](#understanding-list-indices).
 
 <box type="warning" seamless>
 
@@ -554,7 +579,7 @@ Shows highest hourly rate first.
 
 <box type="warning" seamless>
 
-**Indices update after sorting:** Because `edit` and `delete` use the position number in the **current** list, running `sort` changes which tutor is at each index. See [Displayed indices change after `sort` and `delete`](#notes-on-command-format) before your next command.
+**Indices update after sorting:** Because `edit` and `delete` use the position number in the **current** list, running `sort` changes which tutor is at each index. See [Understanding List Indices](#understanding-list-indices) before your next command.
 
 </box>
 
