@@ -210,7 +210,7 @@ Adds a new tutor profile to Tuto.
 
 **Tip:**
 
-1. Tags are powerful ways to organise contacts. You can use multiple tags to provide more detail, e.g. `t/home` and `t/weekend`.
+1. Tags are powerful ways to organise tutor contacts. You can use multiple tags to provide more detail, e.g. `t/home` and `t/weekend`.
 2. A person can have any number of tags (including 0) and multiple subjects.
 3. Command parameters can be entered in any order.
 
@@ -510,6 +510,11 @@ Only **one** `n/` and one `r/` are allowed per command.
 | `find n/Alice n/Bob` | Multiple `n/` not allowed |
 
 </box>
+
+![Invalid Rates](images/find_invalid_rate.png)
+
+![Invalid Names](images/find_invalid_name.png)
+
 
 ---
 
