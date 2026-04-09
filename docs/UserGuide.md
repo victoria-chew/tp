@@ -20,38 +20,41 @@ This guide is written for parents who are comfortable using a keyboard and want 
 ## Table of Contents
 
 - [Tuto User Guide](#tuto-user-guide)
-  - [Table of Contents](#table-of-contents)
-  - [Quick Start](#quick-start)
-    - [Step 1 — Install Java](#step-1--install-java)
-    - [Step 2 — Download Tuto](#step-2--download-tuto)
-    - [Step 3 — Launch Tuto](#step-3--launch-tuto)
-    - [Step 4 — Try Your First Commands](#step-4--try-your-first-commands)
-  - [Understanding the Interface](#understanding-the-interface)
-  - [Command Basics](#command-basics)
-    - [Notes on Command Format](#notes-on-command-format)
-    - [Understanding List Indices](#understanding-list-indices)
-    - [Duplicate Tutors are Not Allowed](#duplicate-tutors-are-not-allowed)
-  - [Commands](#commands)
-    - [Viewing Help : `help`](#viewing-help--help)
-    - [Adding a Tutor : `add`](#adding-a-tutor--add)
-    - [Editing a Tutor Profile : `edit`](#editing-a-tutor-profile--edit)
-    - [Deleting a Tutor : `delete`](#deleting-a-tutor--delete)
-    - [Finding Tutors : `find`](#finding-tutors--find)
-      - [Prefixes](#prefixes)
-      - [Search Modes](#search-modes)
-      - [How Matching Works](#how-matching-works)
-      - [Examples](#examples)
-      - [Invalid Usage](#invalid-usage)
-    - [Sorting the Tutor List : `sort`](#sorting-the-tutor-list--sort)
-    - [Listing All Tutors : `list`](#listing-all-tutors--list)
-    - [Clearing All Entries : `clear`](#clearing-all-entries--clear)
-    - [Exiting the Program : `exit`](#exiting-the-program--exit)
-  - [Data Management](#data-management)
-    - [Saving Your Data](#saving-your-data)
-    - [Editing the Data File Directly](#editing-the-data-file-directly)
-  - [FAQ](#faq)
-  - [Known Issues](#known-issues)
-  - [Command Summary](#command-summary)
+    - [Table of Contents](#table-of-contents)
+    - [Quick Start](#quick-start)
+        - [Step 1 — Install Java](#step-1--install-java)
+        - [Step 2 — Download Tuto](#step-2--download-tuto)
+        - [Step 3 — Launch Tuto](#step-3--launch-tuto)
+        - [Step 4 — Try Your First Commands](#step-4--try-your-first-commands)
+    - [Understanding the Interface](#understanding-the-interface)
+    - [Command Basics](#command-basics)
+        - [Notes on Command Format](#notes-on-command-format)
+        - [Understanding List Indices](#understanding-list-indices)
+        - [Duplicate Tutors are Not Allowed](#duplicate-tutors-are-not-allowed)
+    - [Commands](#commands)
+        - [Viewing Help : `help`](#viewing-help--help)
+        - [Adding a Tutor : `add`](#adding-a-tutor--add)
+            - [Parameters](#parameters)
+            - [Constraints](#constraints)
+            - [Examples](#examples)
+        - [Editing a Tutor Profile : `edit`](#editing-a-tutor-profile--edit)
+        - [Deleting a Tutor : `delete`](#deleting-a-tutor--delete)
+        - [Finding Tutors : `find`](#finding-tutors--find)
+            - [Prefixes](#prefixes)
+            - [Search Modes](#search-modes)
+            - [How Matching Works](#how-matching-works)
+            - [Examples](#examples-3)
+            - [Invalid Usage](#invalid-usage-1)
+        - [Sorting the Tutor List : `sort`](#sorting-the-tutor-list--sort)
+        - [Listing All Tutors : `list`](#listing-all-tutors--list)
+        - [Clearing All Entries : `clear`](#clearing-all-entries--clear)
+        - [Exiting the Program : `exit`](#exiting-the-program--exit)
+    - [Data Management](#data-management)
+        - [Saving Your Data](#saving-your-data)
+        - [Editing the Data File Directly](#editing-the-data-file-directly)
+    - [FAQ](#faq)
+    - [Known Issues](#known-issues)
+    - [Command Summary](#command-summary)
 
 ---
 
@@ -188,7 +191,7 @@ Tuto considers a Tutor Profile to be a duplicate if it shares the exact same **P
 
 <box type="warning" seamless>
 
-**Duplicate Error:** Neither adding a new tutor nor editing an existing one is permitted if it would resolve in two Tutor Profiles having the same phone number or email address.
+**Duplicate Error:** Neither adding a new tutor nor editing an existing one is permitted if it would result in two Tutor Profiles having the same phone number or email address.
 
 </box>
 
@@ -280,7 +283,7 @@ Updates one or more fields of an existing Tutor Profile.
 
 ![Edit command hero image](images/editMessage.png)
 
-**Format:** edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SUBJECT]… [r/RATE] [t/TAG]…
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SUBJECT]… [r/RATE] [t/TAG]…`
 
 ---
 
@@ -316,7 +319,7 @@ Updates one or more fields of an existing Tutor Profile.
 edit 3 e/ qingrong@example.com t/ best
 ```
 
-Updates the email and tags of the 3rd tutor in the list.
+Updates the email and overwrites any existing tags of the 3rd tutor in the list.
 
 **Removing tags**
 
@@ -324,7 +327,7 @@ Updates the email and tags of the 3rd tutor in the list.
 edit 2 t/
 ```
 
-Renames the 2nd tutor and removes all of their tags.
+Removes all of their tags of the 2nd tutor.
 
 **Updating subject and rate**
 
@@ -634,13 +637,13 @@ Shows highest hourly rate first.
 
 ### Listing All Tutors : `list`
 
-Displays all tutor profiles stored in Tuto. The GUI features a left panel that displays the full contact list at all times, so this command is predominantly used in the CLI or to quickly clear search filters in the main view.
+Displays all tutor profiles stored in Tuto. The GUI features a left panel that displays the contact list at all times, so this command is predominantly used in the CLI or to quickly clear search filters in the main view.
 
 ![List command hero image](images/listMessage.png)
 
 **Format:** `list`
 
-**Expected output:** The central panel automatically updates to show all stored tutors, and the result display shows `✨  Listed all tutors!`.
+**Expected output:** The left panel automatically updates to show all stored tutors, and the result display shows `✨  Listed all tutors!`.
 
 <box type="tip" seamless>
 
@@ -688,7 +691,7 @@ Tuto's data are saved automatically as a JSON file `[JAR file location]/data/add
 
 **Caution:**
 If your changes to the data file makes its format invalid, Tuto will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the Tuto to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+Furthermore, certain edits can cause Tuto to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 ---

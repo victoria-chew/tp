@@ -230,7 +230,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     /**
      * Parses all subject arguments from the given {@code ArgumentMultimap} and returns a predicate.
      *
-     * Multiple s/ prefixes are allowed and combined using OR logic.
+     * Multiple s/ prefixes are allowed and combined using AND logic.
      * Subject matching uses prefix search, case-insensitively.
      *
      * Example:
